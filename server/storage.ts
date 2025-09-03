@@ -1,4 +1,5 @@
 import { members, events, mediaItems, type Member, type Event, type MediaItem, type InsertMember, type InsertEvent, type InsertMediaItem } from "@shared/schema";
+import bugo from "@shared/assets/bugo.jpg"
 
 export interface IStorage {
   // Members
@@ -41,12 +42,12 @@ export class MemStorage implements IStorage {
   private async initializeData() {
     // Director
     await this.createMember({
-      firstName: "Giovanni",
-      lastName: "Rossi",
+      firstName: "Alberto",
+      lastName: "Bugatti",
       instrument: "Direttore d'Orchestra",
       section: "direttore",
       joinYear: 1987,
-      photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300"
+      photoUrl: "static/members/bugatti.jpg"
     });
 
     // Guitars
@@ -217,7 +218,11 @@ export class MemStorage implements IStorage {
 
   async createMember(insertMember: InsertMember): Promise<Member> {
     const id = this.currentMemberId++;
-    const member: Member = { ...insertMember, id };
+    const member: Member = { 
+      ...insertMember, 
+      id,
+      photoUrl: insertMember.photoUrl ?? null
+    };
     this.members.set(id, member);
     return member;
   }
@@ -236,7 +241,13 @@ export class MemStorage implements IStorage {
 
   async createEvent(insertEvent: InsertEvent): Promise<Event> {
     const id = this.currentEventId++;
-    const event: Event = { ...insertEvent, id };
+    const event: Event = { 
+      ...insertEvent, 
+      id,
+      description: insertEvent.description ?? null,
+      posterUrl: insertEvent.posterUrl ?? null,
+      isPastEvent: insertEvent.isPastEvent ?? null
+    };
     this.events.set(id, event);
     return event;
   }
@@ -251,7 +262,12 @@ export class MemStorage implements IStorage {
 
   async createMediaItem(insertItem: InsertMediaItem): Promise<MediaItem> {
     const id = this.currentMediaId++;
-    const item: MediaItem = { ...insertItem, id };
+    const item: MediaItem = { 
+      ...insertItem,
+      id,
+      description: insertItem.description ?? null,
+      duration: insertItem.duration ?? null,
+    };
     this.mediaItems.set(id, item);
     return item;
   }

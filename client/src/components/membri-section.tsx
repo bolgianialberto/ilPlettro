@@ -70,7 +70,7 @@ export default function MembriSection() {
                 <Card key={member.id} className={`bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 ${section === 'direttore' ? 'max-w-sm' : ''}`}>
                   <CardContent className="p-6">
                     <Avatar className="w-20 h-20 mx-auto mb-4">
-                      <AvatarImage src={member.photoUrl || undefined} alt={`${member.firstName} ${member.lastName}`} />
+                      <AvatarImage src={member.photoUrl || undefined} alt={`${member.firstName} ${member.lastName}`} className="w-full h-full object-cover object-center"/>
                       <AvatarFallback className="text-lg">
                         {member.firstName.charAt(0)}{member.lastName.charAt(0)}
                       </AvatarFallback>

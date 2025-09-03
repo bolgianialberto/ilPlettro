@@ -71,7 +71,7 @@ export default function ContattiSection() {
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-charcoal">Email</h3>
-                <p className="text-gray-600">info@ilplettro.it</p>
+                <p className="text-gray-600">ilplettro@yahoo.com</p>
               </div>
             </div>
             
@@ -81,7 +81,7 @@ export default function ContattiSection() {
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-charcoal">Telefono</h3>
-                <p className="text-gray-600">+39 051 123 4567</p>
+                <p className="text-gray-600">+39 - 30 - 832445 </p>
               </div>
             </div>
             
@@ -91,7 +91,7 @@ export default function ContattiSection() {
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-charcoal">Sede</h3>
-                <p className="text-gray-600">Via della Musica 15, Bologna</p>
+                <p className="text-gray-600">Via Giusnai 2, Gardone Val Trompia, Brescia </p>
               </div>
             </div>
 

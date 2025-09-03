@@ -1,3 +1,12 @@
+import taormina from '../assets/taormina.jpg';
+import ponte from '../assets/ponte.jpg';
+import prato from '../assets/prato.jpg';
+import vecchia from '../assets/vecchia.jpg';
+import chiesa from '../assets/chiesa.jpg';
+import tampa from '../assets/tampa.jpg';
+import loggia from '../assets/loggia.jpg';
+import forno from '../assets/forno.jpg';
+
 export default function StoriaSection() {
   return (
     <section id="storia" className="py-20 bg-white">
@@ -10,38 +19,65 @@ export default function StoriaSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
             <p className="text-lg leading-relaxed text-gray-700">
-              L'Orchestra ilPlettro nasce nel 1987 dalla passione di un gruppo di musicisti amanti della tradizione mandolinistica italiana. 
-              Da oltre trent'anni, portiamo avanti l'arte della musica per plettro, mantenendo viva una tradizione centenaria che affonda le sue radici nel cuore della cultura musicale italiana.
+              Fondata nel 1982 da Giovanni “Gianni” Ora, considerato il vero e proprio "papà" degli orchestrali, l’orchestra ha saputo distinguersi fin da subito grazie a un intenso lavoro di formazione e preparazione degli strumentisti. Nel corso degli anni ha raggiunto un alto livello artistico, partecipando con successo a numerosi concorsi, festival e rassegne in Italia e all’estero.
             </p>
+
             <p className="text-lg leading-relaxed text-gray-700">
-              Composta da circa 30 membri tra chitarre classiche, mandolini, mandole e contrabbassi, l'orchestra si è esibita in numerosi concerti e rassegne musicali, 
-              conquistando il pubblico con la sua interpretazione raffinata e appassionata del repertorio tradizionale e moderno.
+              Tra i riconoscimenti più significativi si segnalano il Primo Premio al concorso "Suona con noi" di Pesaro, il Secondo Premio al Concorso Internazionale "Città di Stresa", la partecipazione al Festival Internazionale di Musica Universitaria di Belfort (Francia), alla Seconda Rassegna Mandolinistica organizzata dall’Associazione "Salvatore Converso" di Sorrento e alla Quinta Settimana del Mandolino a Tarbes (Francia).
             </p>
+
             <p className="text-lg leading-relaxed text-gray-700">
-              Oltre all'attività concertistica, ilPlettro gestisce una scuola di musica che forma nuove generazioni di musicisti, 
-              trasmettendo non solo la tecnica strumentale ma anche l'amore per questa meravigliosa tradizione musicale.
+              Nel dicembre 2002, l’orchestra si è aggiudicata il Primo Premio con votazione 98/100 al 3° Concorso Musicale Internazionale "Francesco Forgione", organizzato dall’Associazione Musicale "Dino Ciani" a Verbania – Intra (VB). Nel 2011 ha ottenuto il premio per la miglior interpretazione del brano d’obbligo al Concorso Internazionale per Orchestre a Plettro “Siegfried Behrend” di Schweinfurt (Germania). Nel settembre 2012 è stata invitata a esibirsi nel prestigioso Teatro Antico di Taormina, nell’ambito della stagione artistica promossa dalla società “Taormina Arte”.
+            </p>
+
+            <p className="text-lg leading-relaxed text-gray-700">
+              Grazie alla posizione di rilievo raggiunta, l’orchestra è oggi riconosciuta come una benemerita istituzione, insignita di riconoscimenti ufficiali da parte delle autorità per il suo impegno nella salvaguardia del patrimonio musicale italiano, in particolare nella valorizzazione degli strumenti a plettro, espressione della tradizione popolare e colta del nostro Paese.
+            </p>
+
+            <p className="text-lg leading-relaxed text-gray-700">
+              Attualmente l’orchestra è composta da 32 strumentisti ed è diretta dal Maestro Alberto Bugatti. Il presidente in carica è Piercesare Cordini, mentre il fondatore Gianni Ora continua a essere un punto di riferimento storico e affettivo per tutta la compagine orchestrale.
             </p>
           </div>
           
           <div className="grid grid-cols-2 gap-4">
             <img 
-              src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300" 
+              src={vecchia}
               alt="Orchestra storica" 
               className="rounded-lg shadow-lg"
             />
             <img 
-              src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300" 
-              alt="Strumenti tradizionali" 
+              src={taormina}
+              alt="Taormina" 
               className="rounded-lg shadow-lg"
             />
             <img 
-              src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300" 
-              alt="Scuola di musica" 
+              src={ponte}
+              alt="Foto di gruppo" 
               className="rounded-lg shadow-lg"
             />
             <img 
-              src="https://images.unsplash.com/photo-1501612780327-45045538702b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300" 
-              alt="Concerto" 
+              src={prato}
+              alt="Foto di gruppo" 
+              className="rounded-lg shadow-lg"
+            />
+            <img 
+              src={chiesa}
+              alt="Foto di gruppo" 
+              className="rounded-lg shadow-lg"
+            />
+            <img 
+              src={tampa}
+              alt="Tampalini" 
+              className="rounded-lg shadow-lg"
+            />
+            <img 
+              src={loggia}
+              alt="Piazza della Loggia" 
+              className="rounded-lg shadow-lg"
+            />
+            <img 
+              src={forno}
+              alt="Tavernole" 
               className="rounded-lg shadow-lg"
             />
           </div>
