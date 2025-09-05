@@ -1,5 +1,4 @@
-import { members, events, mediaItems, type Member, type Event, type MediaItem, type InsertMember, type InsertEvent, type InsertMediaItem } from "@shared/schema";
-import bugo from "@shared/assets/bugo.jpg"
+import { members, events, mediaItems, type Member, type Event, type MediaItem, type InsertMember, type InsertEvent, type InsertMediaItem } from "../shared/schema";
 
 export interface IStorage {
   // Members
@@ -47,7 +46,7 @@ export class MemStorage implements IStorage {
       instrument: "Direttore d'Orchestra",
       section: "direttore",
       joinYear: 1987,
-      photoUrl: "static/members/bugatti.jpg"
+      photoUrl: "/members/bugatti.jpg"
     });
 
     // Guitars
