@@ -9,7 +9,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "https://il-plettro.vercel.app",  // URL del frontend su Vercel
+  credentials: true,                        // visto che il FE fa richieste con include
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 // Middleware per parsing
 app.use(express.json());
