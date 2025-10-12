@@ -46,17 +46,17 @@ app.use((req, res, next) => {
 
 const isProduction = process.env.NODE_ENV === "production";
 
-if (isProduction) {
-  // Serve build del client solo in produzione
-  const clientDist = path.join(__dirname, "../../client/dist"); // dopo build, copia dist/public in server/public
-  app.use(express.static(clientDist));
-  app.get("*", (_req, res) => {
-    res.sendFile(path.join(clientDist, "index.html"));
-  });
-} else {
-  // In dev non servire il client, solo le API
-  console.log("Running in development mode, server only serves APIs");
-}
+// if (isProduction) {
+//   // Serve build del client solo in produzione
+//   const clientDist = path.join(__dirname, "../../client/dist"); // dopo build, copia dist/public in server/public
+//   app.use(express.static(clientDist));
+//   app.get("*", (_req, res) => {
+//     res.sendFile(path.join(clientDist, "index.html"));
+//   });
+// } else {
+//   // In dev non servire il client, solo le API
+//   console.log("Running in development mode, server only serves APIs");
+// }
 
 
 (async () => {
