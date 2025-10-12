@@ -48,7 +48,7 @@ const isProduction = process.env.NODE_ENV === "production";
 
 if (isProduction) {
   // Serve build del client solo in produzione
-  const clientDist = path.join(__dirname, "public"); // dopo build, copia dist/public in server/public
+  const clientDist = path.join(__dirname, "client/dist"); // dopo build, copia dist/public in server/public
   app.use(express.static(clientDist));
   app.get("*", (_req, res) => {
     res.sendFile(path.join(clientDist, "index.html"));
