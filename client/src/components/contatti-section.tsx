@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Mail, Phone, MapPin, Facebook, Instagram, Youtube, MessageSquare } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import { API_URL } from "../config";
 
 export default function ContattiSection() {
   const [formData, setFormData] = useState({
@@ -21,7 +22,7 @@ export default function ContattiSection() {
   
   const contactMutation = useMutation({
     mutationFn: async (data: typeof formData) => {
-      return await apiRequest('POST', '/api/contact', data);
+      return await apiRequest('POST', `${API_URL}/api/contact`, data);
     },
     onSuccess: () => {
       toast({

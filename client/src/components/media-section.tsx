@@ -5,12 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Music, Camera, Video, Play, PlayCircle } from "lucide-react";
 import type { MediaItem } from "@shared/schema";
+import { API_URL } from "@/config";
 
 export default function MediaSection() {
   const [activeType, setActiveType] = useState<'audio' | 'photo' | 'video'>('audio');
   
   const { data: mediaItems, isLoading } = useQuery<MediaItem[]>({
-    queryKey: ['/api/media', activeType],
+    queryKey: [`${API_URL}/api/media`, activeType],
   });
 
   const openLightbox = (imageUrl: string) => {

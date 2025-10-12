@@ -6,16 +6,17 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Calendar, MapPin, ExternalLink } from "lucide-react";
 import type { Event } from "@shared/schema";
+import { API_URL } from "../config";
 
 export default function EventiSection() {
   const [showPast, setShowPast] = useState(false);
   
   const { data: upcomingEvents, isLoading: isLoadingUpcoming } = useQuery<Event[]>({
-    queryKey: ['/api/events/upcoming'],
+    queryKey: [`${API_URL}/api/events/upcoming`],
   });
 
   const { data: pastEvents, isLoading: isLoadingPast } = useQuery<Event[]>({
-    queryKey: ['/api/events/past'],
+    queryKey: [`${API_URL}/api/events/past`],
   });
 
   const addToCalendar = (event: Event, type: 'google' | 'apple') => {

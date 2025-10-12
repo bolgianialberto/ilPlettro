@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 
   res.on("finish", () => {
     const duration = Date.now() - start;
-    if (pathReq.startsWith("/api")) {
+    if (pathReq.startsWith(`/api`)) {
       let logLine = `${req.method} ${pathReq} ${res.statusCode} in ${duration}ms`;
       if (capturedJsonResponse) {
         logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;

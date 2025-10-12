@@ -3,10 +3,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Member } from "@shared/schema";
+import { API_URL } from "../config";
 
 export default function MembriSection() {
   const { data: members, isLoading } = useQuery<Member[]>({
-    queryKey: ['/api/members'],
+    queryKey: [`${API_URL}/api/members`],
   });
 
   if (isLoading) {
