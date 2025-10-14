@@ -1,23 +1,17 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Calendar, MapPin, ExternalLink } from "lucide-react";
 import type { Event } from "@shared/schema";
-import { API_URL } from "../config";
+import { events } from "@/data/events";
 
 export default function EventiSection() {
   const [showPast, setShowPast] = useState(false);
-  
-  const { data: upcomingEvents, isLoading: isLoadingUpcoming } = useQuery<Event[]>({
-    queryKey: [`${API_URL}/api/events/upcoming`],
-  });
 
-  const { data: pastEvents, isLoading: isLoadingPast } = useQuery<Event[]>({
-    queryKey: [`${API_URL}/api/events/past`],
-  });
+  const today = new Date();
+  const upcomingEvents = events.filter(e => new Date(e.date) >= today);
+  const pastEvents = events.filter(e => new Date(e.date) < today); 
 
   const addToCalendar = (event: Event, type: 'google' | 'apple') => {
     const startDate = new Date(event.date);
@@ -55,8 +49,7 @@ END:VCALENDAR`;
     }
   };
 
-  const isLoading = isLoadingUpcoming || isLoadingPast;
-  const events = showPast ? pastEvents : upcomingEvents;
+  const displayedEvents = showPast ? pastEvents : upcomingEvents;
 
   return (
     <section id="eventi" className="py-20 bg-white">
@@ -91,24 +84,9 @@ END:VCALENDAR`;
 
         {/* Events grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {isLoading ? (
-            [...Array(3)].map((_, i) => (
-              <Card key={i} className="overflow-hidden">
-                <Skeleton className="w-full h-48" />
-                <CardContent className="p-6">
-                  <Skeleton className="h-6 w-20 mb-3" />
-                  <Skeleton className="h-6 w-full mb-3" />
-                  <Skeleton className="h-4 w-32 mb-4" />
-                  <Skeleton className="h-16 w-full mb-4" />
-                  <div className="flex space-x-2">
-                    <Skeleton className="h-9 w-20" />
-                    <Skeleton className="h-9 w-20" />
-                  </div>
-                </CardContent>
-              </Card>
-            ))
-          ) : events && events.length > 0 ? (
-            events.map((event) => (
+          {
+          displayedEvents && displayedEvents.length > 0 ? (
+            displayedEvents.map((event) => (
               <Card key={event.id} className={`bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 ${showPast ? 'opacity-75' : ''}`}>
                 <img 
                   src={event.posterUrl || "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250"} 

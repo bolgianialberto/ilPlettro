@@ -1,39 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Skeleton } from "@/components/ui/skeleton";
 import type { Member } from "@shared/schema";
-import { API_URL } from "../config";
+import { members as staticMembers } from "@/data/members";
 
 export default function MembriSection() {
-  const { data: members, isLoading } = useQuery<Member[]>({
-    queryKey: [`${API_URL}/api/members`],
-  });
 
-  if (isLoading) {
-    return (
-      <section id="membri" className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-playfair font-bold text-charcoal mb-4">I nostri membri</h2>
-            <div className="w-24 h-1 bg-gold mx-auto mb-6"></div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {[...Array(12)].map((_, i) => (
-              <Card key={i} className="p-6">
-                <Skeleton className="w-20 h-20 rounded-full mx-auto mb-4" />
-                <Skeleton className="h-5 w-32 mx-auto mb-2" />
-                <Skeleton className="h-4 w-24 mx-auto mb-1" />
-                <Skeleton className="h-3 w-20 mx-auto" />
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  const groupedMembers = members?.reduce((acc, member) => {
+  const groupedMembers = staticMembers?.reduce((acc, member) => {
     if (!acc[member.section]) {
       acc[member.section] = [];
     }
@@ -67,7 +39,7 @@ export default function MembriSection() {
             </h3>
             
             <div className={`grid gap-6 ${section === 'direttore' ? 'flex justify-center' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'}`}>
-              {sectionMembers.map((member) => (
+              {sectionMembers.map((member, index) => (
                 <Card key={member.id} className={`bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 ${section === 'direttore' ? 'max-w-sm' : ''}`}>
                   <CardContent className="p-6">
                     <Avatar className="w-20 h-20 mx-auto mb-4">
