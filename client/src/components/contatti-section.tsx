@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,8 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Mail, Phone, MapPin, Facebook, Instagram, Youtube, MessageSquare } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { apiRequest } from "@/lib/queryClient";
-import { API_URL } from "../config";
+import emailjs from '@emailjs/browser';
 
 export default function ContattiSection() {
   const [formData, setFormData] = useState({
@@ -18,34 +16,47 @@ export default function ContattiSection() {
     message: ''
   });
   
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
-  
-  const contactMutation = useMutation({
-    mutationFn: async (data: typeof formData) => {
-      return await apiRequest('POST', `${API_URL}/api/contact`, data);
-    },
-    onSuccess: () => {
+
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      // Configura EmailJS con i tuoi parametri
+      await emailjs.send(
+        'service_ilplettro',      // Sostituisci con il tuo Service ID
+        'template_ilplettro',     // Sostituisci con il tuo Template ID
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          to_email: 'bolgianialberto99@gmail.com'
+        },
+        '9cUK9d9CxfEkEGl_L'        // Sostituisci con la tua Public Key
+      );
+
       toast({
         title: "Messaggio inviato!",
         description: "Ti risponderemo il prima possibile.",
       });
+      
       setFormData({ name: '', email: '', subject: '', message: '' });
-    },
-    onError: () => {
+    } catch (error) {
       toast({
         title: "Errore",
         description: "Si è verificato un errore nell'invio del messaggio.",
         variant: "destructive",
       });
+      console.error('EmailJS Error:', error);
+    } finally {
+      setIsSubmitting(false);
     }
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    contactMutation.mutate(formData);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: { target: { name: any; value: any; }; }) => {
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value
@@ -190,10 +201,10 @@ export default function ContattiSection() {
                 
                 <Button
                   type="submit"
-                  disabled={contactMutation.isPending}
+                  disabled={isSubmitting}
                   className="w-full bg-burgundy text-white hover:bg-burgundy/90 transition-colors"
                 >
-                  {contactMutation.isPending ? 'Invio in corso...' : 'Invia messaggio'}
+                  {isSubmitting ? 'Invio in corso...' : 'Invia messaggio'}
                 </Button>
               </form>
             </CardContent>

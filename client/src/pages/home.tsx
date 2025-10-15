@@ -29,7 +29,7 @@ export default function Home() {
       <StoriaSection />
       <MembriSection />
       <EventiSection />
-      <MediaSection />
+      {/* <MediaSection /> */}
       <ContattiSection />
       <Footer />
       <Lightbox />

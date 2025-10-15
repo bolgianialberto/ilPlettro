@@ -46,12 +46,12 @@ export default function Navbar() {
               >
                 Eventi
               </button>
-              <button 
+              {/* <button 
                 onClick={() => scrollToSection('media')}
                 className="text-charcoal hover:text-burgundy px-3 py-2 text-sm font-medium transition-colors"
               >
                 Media
-              </button>
+              </button> */}
               <button 
                 onClick={() => scrollToSection('contatti')}
                 className="text-charcoal hover:text-burgundy px-3 py-2 text-sm font-medium transition-colors"
