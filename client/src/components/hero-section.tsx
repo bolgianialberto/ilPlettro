@@ -21,13 +21,13 @@ export default function HeroSection() {
       
       <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
         <h1 className="text-5xl md:text-7xl font-playfair font-bold mb-6 animate-fadeInUp">
-          ilPlettro
+          Il Plettro
         </h1>
         <p className="text-xl md:text-2xl mb-8 font-light animate-fadeInUp">
           Orchestra e Scuola di Musica
         </p>
         <p className="text-lg md:text-xl mb-12 max-w-2xl mx-auto opacity-90 animate-fadeInUp">
-          Dove la passione per la musica tradizionale italiana incontra l'eccellenza artistica
+          Dal 1882
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fadeInUp">
           <button

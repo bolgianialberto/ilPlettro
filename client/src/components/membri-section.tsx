@@ -16,7 +16,8 @@ export default function MembriSection() {
   const sectionNames = {
     direttore: "Direttore",
     chitarre: "Chitarre",
-    mandolini: "Mandolini",
+    mandolini_primi: "Mandolini primi",
+    mandolini_secondi: "Mandolini secondi",
     mandole: "Mandole",
     contrabbassi: "Contrabbassi"
   };
