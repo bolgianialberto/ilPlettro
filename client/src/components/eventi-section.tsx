@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar, MapPin, ExternalLink } from "lucide-react";
 import type { Event } from "@shared/schema";
 import { events } from "@/data/events";
+import { X, Download } from "lucide-react";
 
 export default function EventiSection() {
   const [showPast, setShowPast] = useState(false);
@@ -13,10 +14,31 @@ export default function EventiSection() {
   const upcomingEvents = events.filter(e => new Date(e.date) >= today);
   const pastEvents = events.filter(e => new Date(e.date) < today); 
 
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+
+  const handleDownload = async (url: string, filename: string) => {
+    try {
+      const res = await fetch(url);          // scarica l’immagine
+      const blob = await res.blob();         // crea un blob
+      const blobUrl = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = blobUrl;
+      a.download = filename;                  // nome file
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      URL.revokeObjectURL(blobUrl);
+    } catch (err) {
+      console.error("Download fallito", err);
+    }
+  };
+
   const addToCalendar = (event: Event, type: 'google' | 'apple') => {
     const startDate = new Date(event.date);
     const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000); // 2 hours later
-    
+
     const formatDate = (date: Date) => {
       return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
     };
@@ -62,6 +84,45 @@ END:VCALENDAR`;
           </p>
         </div>
 
+        {/* Lightbox */}
+        {lightboxImage && (
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
+            onClick={() => setLightboxImage(null)} // chiude al click sullo sfondo
+          >
+            <div className="relative max-w-[90%] max-h-[80%] md:max-w-lg">
+              <img 
+                src={lightboxImage} 
+                alt="Locandina"
+                className="max-w-full max-h-full rounded shadow-lg"
+                onClick={(e) => e.stopPropagation()} // evita che il click chiuda il lightbox
+              />
+
+              {/* Pulsante chiudi in alto a destra */}
+              <button
+                className="absolute top-2 right-2 bg-white text-gray-800 p-2 rounded-full shadow hover:bg-gray-200 transition-colors"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setLightboxImage(null);
+                }}
+              >
+                <X className="w-4 h-4" />
+              </button>
+
+              {/* Pulsante download in basso a destra */}
+              <button
+                className="absolute bottom-2 right-2 bg-white text-gray-800 p-2 rounded-full shadow hover:bg-gray-200 transition-colors"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDownload(lightboxImage!, "locandina.jpg"); // scarica con JS
+                }}
+              >
+                <Download className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Event navigation */}
         <div className="flex justify-center mb-12">
           <div className="bg-gray-50 rounded-lg p-2 flex items-center space-x-2">
@@ -91,7 +152,8 @@ END:VCALENDAR`;
                 <img 
                   src={event.posterUrl || "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250"} 
                   alt={event.title}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-48 object-cover cursor-pointer"
+                  onClick={() => setLightboxImage(event.posterUrl || 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250')}
                 />
                 <CardContent className="p-6">
                   <div className="flex items-center mb-3">
