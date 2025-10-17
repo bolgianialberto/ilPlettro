@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -11,6 +13,25 @@ export default function Navbar() {
     }
     setIsMenuOpen(false);
   };
+
+  // 2. Click outside listener
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    }
+
+    if (isMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMenuOpen]);
 
   return (
     <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-md z-50 shadow-sm">
@@ -74,7 +95,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white border-t">
+        <div ref={menuRef} className="md:hidden bg-white border-t">
           <div className="px-2 pt-2 pb-3 space-y-1">
             <button 
               onClick={() => scrollToSection('home')}
@@ -100,12 +121,12 @@ export default function Navbar() {
             >
               Eventi
             </button>
-            <button 
+            {/* <button 
               onClick={() => scrollToSection('media')}
               className="block w-full text-left px-3 py-2 text-base font-medium text-charcoal hover:text-burgundy"
             >
               Media
-            </button>
+            </button> */}
             <button 
               onClick={() => scrollToSection('contatti')}
               className="block w-full text-left px-3 py-2 text-base font-medium text-charcoal hover:text-burgundy"
