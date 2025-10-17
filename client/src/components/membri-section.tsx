@@ -22,6 +22,28 @@ export default function MembriSection() {
     contrabbassi: "Contrabbassi"
   };
 
+  const bgColors = [
+    "bg-rose-200",     // Rosa tenue
+    "bg-sky-200",      // Azzurro chiaro
+    "bg-emerald-200",  // Verde pastello
+    "bg-amber-200",    // Giallo caldo e soft
+    "bg-violet-200",   // Lilla
+    "bg-indigo-200",   // Blu violaceo tenue
+    "bg-orange-200",   // Pesca tenue
+    "bg-teal-200"      // Verde acqua leggerissimo
+  ];
+
+  const instrumentColors: Record<string, string> = {
+    "direttore": "bg-yellow-200",
+    "chitarre": "bg-sky-200",
+    "mandolini_primi": "bg-rose-200",
+    "mandolini_secondi": "bg-emerald-200",
+    "mandole": "bg-violet-200",
+    "contrabbassi": "bg-orange-200",
+    // Default per strumenti non mappati
+    "default": "bg-gray-200"
+  };
+
   return (
     <section id="membri" className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -39,21 +61,39 @@ export default function MembriSection() {
               {sectionNames[section as keyof typeof sectionNames]}
             </h3>
             
-            <div className={`grid gap-6 ${section === 'direttore' ? 'flex justify-center' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'}`}>
+            <div
+              className={
+                section === 'direttore'
+                  ? 'flex justify-center'
+                  : 'flex gap-6 overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 scrollbar-hide'
+              }
+            >              
               {sectionMembers.map((member, index) => (
                 <Card key={member.id} className={`bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 ${section === 'direttore' ? 'max-w-sm' : ''}`}>
                   <CardContent className="p-6">
                     <Avatar className="w-20 h-20 mx-auto mb-4">
+                      {member.photoUrl ? (  
                       <AvatarImage src={member.photoUrl || undefined} alt={`${member.firstName} ${member.lastName}`} className="w-full h-full object-cover object-center"/>
-                      <AvatarFallback className="text-lg">
+                      ) : (
+                         <div
+                            className={`w-full h-full flex items-center justify-center text-white font-bold ${
+                              instrumentColors[member.section] || instrumentColors.default
+                            }`}
+                          >
+                          {`${member.firstName.charAt(0)} ${member.lastName.charAt(0)}`}
+                        </div>
+                      )}
+                      {/* <AvatarFallback className="text-lg">
                         {member.firstName.charAt(0)}{member.lastName.charAt(0)}
-                      </AvatarFallback>
+                      </AvatarFallback> */}
                     </Avatar>
                     <h4 className="text-lg font-semibold text-center text-charcoal">
                       {section === 'direttore' ? 'Maestro ' : ''}{member.firstName} {member.lastName}
                     </h4>
                     <p className="text-center text-gray-600 mb-1">{member.instrument}</p>
-                    <p className="text-center text-sm text-gray-500">Dal {member.joinYear}</p>
+                    {member.joinYear && (
+                      <p className="text-center text-sm text-gray-500">Dal {member.joinYear}</p>
+                    )}
                   </CardContent>
                 </Card>
               ))}

@@ -8,7 +8,7 @@ export const members = pgTable("members", {
   lastName: text("last_name").notNull(),
   instrument: text("instrument").notNull(),
   section: text("section").notNull(), // "direttore", "chitarre", "mandolini", "mandole", "contrabbassi"
-  joinYear: integer("join_year").notNull(),
+  joinYear: integer("join_year"),
   photoUrl: text("photo_url"),
 });
 
