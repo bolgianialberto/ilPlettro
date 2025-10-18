@@ -93,17 +93,27 @@ export default function ContattiSection() {
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-charcoal">Telefono</h3>
-                <p className="text-gray-600">+39 - 30 - 832445 </p>
+                <p className="text-gray-600">+39 347 354 0736</p>
               </div>
             </div>
             
+            <div className="flex items-center space-x-4">
+              <div className="w-12 h-12 bg-burgundy rounded-full flex items-center justify-center">
+                <MessageSquare className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-charcoal">Whatsapp</h3>
+                <p className="text-gray-600">+39 391 488 9170</p>
+              </div>
+            </div>
+
             <div className="flex items-center space-x-4">
               <div className="w-12 h-12 bg-burgundy rounded-full flex items-center justify-center">
                 <MapPin className="w-6 h-6 text-white" />
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-charcoal">Sede</h3>
-                <p className="text-gray-600">Via Giusnai 2, Gardone Val Trompia, Brescia </p>
+                <p className="text-gray-600">Via Monte Guglielmo, 128, Gardone Val Trompia, BS</p>
               </div>
             </div>
 
@@ -123,6 +133,19 @@ export default function ContattiSection() {
                     <Facebook className="w-4 h-4" />
                   </div>
                   <span className="font-medium text-charcoal">Orchestra "Il Plettro"</span>
+                </a>
+
+                {/* Instagram */}
+                <a
+                  href="https://www.instagram.com/orchestrailplettro/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2 text-white hover:text-gray-100 transition-colors"
+                >
+                <div className="w-8 h-8 rounded-full flex items-center justify-center bg-gradient-to-br from-yellow-400 via-pink-500 to-purple-600">
+                    <Instagram className="w-4 h-4 text-white" />
+                  </div>
+                  <span className="font-medium text-charcoal">orchestrailplettro</span>
                 </a>
 
                 {/* YouTube */}

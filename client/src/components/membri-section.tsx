@@ -15,6 +15,8 @@ export default function MembriSection() {
 
   const sectionNames = {
     direttore: "Direttore",
+    presidente: "Presidente",
+    vicepresidente: "Vicepresidente",
     chitarre: "Chitarre",
     mandolini_primi: "Mandolini primi",
     mandolini_secondi: "Mandolini secondi",
@@ -22,7 +24,7 @@ export default function MembriSection() {
     contrabbassi: "Contrabbassi"
   };
 
-  const bgColors = [
+ const bgColors = [
     "bg-rose-200",     // Rosa tenue
     "bg-sky-200",      // Azzurro chiaro
     "bg-emerald-200",  // Verde pastello
@@ -30,11 +32,15 @@ export default function MembriSection() {
     "bg-violet-200",   // Lilla
     "bg-indigo-200",   // Blu violaceo tenue
     "bg-orange-200",   // Pesca tenue
-    "bg-teal-200"      // Verde acqua leggerissimo
+    "bg-teal-200",     // Verde acqua leggerissimo
+    "bg-lime-200",     // Verde lime chiaro
+    "bg-fuchsia-200"   // Fucsia delicato
   ];
 
   const instrumentColors: Record<string, string> = {
     "direttore": "bg-yellow-200",
+    "presidente": "bg-lime-200",
+    "vicepresidente": "bg-fuchsia-200",
     "chitarre": "bg-sky-200",
     "mandolini_primi": "bg-rose-200",
     "mandolini_secondi": "bg-emerald-200",
@@ -51,11 +57,50 @@ export default function MembriSection() {
           <h2 className="text-4xl font-playfair font-bold text-charcoal mb-4">I nostri membri</h2>
           <div className="w-24 h-1 bg-gold mx-auto mb-6"></div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            L'orchestra è composta da musicisti appassionati e talentuosi, uniti dall'amore per la musica tradizionale italiana
+            {/* descrizione*/}
           </p>
         </div>
 
-        {Object.entries(groupedMembers).map(([section, sectionMembers]) => (
+        {/* Gruppo speciale: Direttore, Presidente e Vicepresidente sulla stessa riga */}
+        {['direttore', 'presidente', 'vicepresidente'].some(s => groupedMembers[s]) && (
+          <div className="mb-12">
+            <h3 className="text-2xl font-playfair font-semibold text-center mb-8 text-burgundy">
+              {/* titolo sezione */}
+            </h3>
+            <div className="flex gap-6 overflow-x-auto md:grid md:grid-cols-3 scrollbar-hide">
+              {['direttore', 'presidente', 'vicepresidente'].flatMap((section) =>
+                groupedMembers[section]?.map((member) => (
+                  <Card key={member.id} className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <CardContent className="p-6">
+                      <Avatar className="w-20 h-20 mx-auto mb-4">
+                        {member.photoUrl ? (
+                          <AvatarImage src={member.photoUrl} alt={`${member.firstName} ${member.lastName}`} className="w-full h-full object-cover object-center" />
+                        ) : (
+                          <div className={`w-full h-full flex items-center justify-center text-white font-bold ${
+                            instrumentColors[member.section] || instrumentColors.default
+                          }`}>
+                            {`${member.firstName.charAt(0)} ${member.lastName.charAt(0)}`}
+                          </div>
+                        )}
+                      </Avatar>
+                      <h4 className="text-lg font-semibold text-center text-charcoal">
+                        {section === 'direttore' ? 'Maestro ' : ''}{member.firstName} {member.lastName}
+                      </h4>
+                      <p className="text-center text-gray-600 mb-1">{member.instrument}</p>
+                      {member.joinYear && (
+                        <p className="text-center text-sm text-gray-500">Dal {member.joinYear}</p>
+                      )}
+                    </CardContent>
+                  </Card>
+                ))
+              )}
+            </div>
+          </div>
+        )}
+
+        {Object.entries(groupedMembers)
+        .filter(([section]) => !['direttore', 'presidente', 'vicepresidente'].includes(section))
+        .map(([section, sectionMembers]) => (
           <div key={section} className="mb-12">
             <h3 className="text-2xl font-playfair font-semibold text-center mb-8 text-burgundy">
               {sectionNames[section as keyof typeof sectionNames]}

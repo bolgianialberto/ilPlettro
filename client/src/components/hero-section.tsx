@@ -24,7 +24,9 @@ export default function HeroSection() {
           Il Plettro
         </h1>
         <p className="text-xl md:text-2xl mb-8 font-light animate-fadeInUp">
-          Orchestra e Scuola di Musica
+          Orchestra di mandolini e chitarre
+          <br/>
+          Scuola di musica
         </p>
         <p className="text-lg md:text-xl mb-12 max-w-2xl mx-auto opacity-90 animate-fadeInUp">
           Dal 1882

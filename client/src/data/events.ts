@@ -22,11 +22,21 @@ export const events: Event[] = [
   { 
     id: 2,
     title: "Settembre Inzinese",
-    description: "Festeggia la fine di Settembre Inzinese.",
+    description: "",
     date: new Date("2025-10-18T20:45:00"),
     time: "20:45",
     venue: "Chiesa parrocchiale di Inzino",
     posterUrl: "https://ik.imagekit.io/4l83rt0/il-plettro/locandine/18-10-2025.jpeg?updatedAt=1760604998522",
+    isPastEvent: false
+  },
+  { 
+    id: 3,
+    title: "Concerto",
+    description: "Orchestra di mandolini e chitarre",
+    date: new Date("2024-10-05T20:45:00"),
+    time: "20:45",
+    venue: "Chiesa parrocchiale di Inzino",
+    posterUrl: "https://ik.imagekit.io/4l83rt0/il-plettro/locandine/05-10-2024.jpeg?updatedAt=1760779211425",
     isPastEvent: false
   }
 ];
