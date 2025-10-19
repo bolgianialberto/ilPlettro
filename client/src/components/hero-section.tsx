@@ -29,7 +29,7 @@ export default function HeroSection() {
           Scuola di musica
         </p>
         <p className="text-lg md:text-xl mb-12 max-w-2xl mx-auto opacity-90 animate-fadeInUp">
-          Dal 1882
+          Dal 1982
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fadeInUp">
           <button

@@ -54,16 +54,32 @@ export default function StoriaSection() {
           </div>
 
           {/* Galleria immagini */}
-          <div className="flex gap-4 overflow-x-auto scrollbar-hide py-2">
-            {groupImages.map((e) => (
-              <img
-                key={e.id}
-                src={e.posterUrl}
-                alt={`Foto ${e.id}`}
-                className="flex-shrink-0 w-48 h-48 object-cover rounded-lg shadow-lg cursor-pointer"
-                onClick={() => setLightboxImage(e.posterUrl)}
-              />
-            ))}
+          <div className="py-2">
+            <div className="flex gap-4 overflow-x-auto scrollbar-hide lg:hidden">
+              {/* Versione mobile - scrollabile */}
+              {groupImages.map((e) => (
+                <img
+                  key={e.id}
+                  src={e.posterUrl}
+                  alt={`Foto ${e.id}`}
+                  className="flex-shrink-0 w-48 h-48 object-cover rounded-lg shadow-lg cursor-pointer"
+                  onClick={() => setLightboxImage(e.posterUrl)}
+                />
+              ))}
+            </div>
+
+            <div className="hidden lg:grid lg:grid-cols-3 lg:gap-4">
+              {/* Versione desktop - griglia */}
+              {groupImages.map((e) => (
+                <img
+                  key={e.id}
+                  src={e.posterUrl}
+                  alt={`Foto ${e.id}`}
+                  className="w-full h-48 object-cover rounded-lg shadow-lg cursor-pointer"
+                  onClick={() => setLightboxImage(e.posterUrl)}
+                />
+              ))}
+            </div>
           </div>
         </div>
 
