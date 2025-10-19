@@ -5,24 +5,39 @@ import { X, Download } from "lucide-react";
 export default function StoriaSection() {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
-  const handleDownload = async (url: string, filename: string) => {
-    try {
-      const res = await fetch(url);
-      const blob = await res.blob();
-      const blobUrl = URL.createObjectURL(blob);
+const handleDownload = async (url: string, filename: string) => {
+  try {
+    const res = await fetch(url);
+    const blob = await res.blob();
 
-      const a = document.createElement("a");
-      a.href = blobUrl;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-
-      URL.revokeObjectURL(blobUrl);
-    } catch (err) {
-      console.error("Download fallito", err);
+    // Su mobile: usa Web Share API (l'utente può scegliere "Salva immagine")
+    if (navigator.share && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+      const file = new File([blob], filename, { type: blob.type });
+      
+      if (navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: 'Salva immagine',
+          text: 'Scarica immagine'
+        });
+        return;
+      }
     }
-  };
+
+    // Fallback per desktop o browser che non supportano share
+    const blobUrl = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = blobUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(blobUrl);
+    
+  } catch (err) {
+    console.error("Download fallito", err);
+  }
+};
 
   return (
     <section id="storia" className="py-20 bg-white">
